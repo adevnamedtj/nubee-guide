@@ -14,7 +14,7 @@ import (
  // Content metedata crud operations
 func (databasePointer *Database) findContentMetadataByID(id string) &Content, error {
 	content := &Content{}
-	err := databasePointer.QueryRow("SELECT id, date, name FROM `test` WHERE id = ?", id).Scan(&dbdata.ID, &dbdata.Date, &dbdata.Name)
+	err := databasePointer.QueryRow("SELECT video_id, title, description FROM `contentmetadata` WHERE video_id = ?", id).Scan(&Content.VideoID, &Content.Title, &Content.Description)
 	if err != nil {
 		log.Fatal("Failed to pulled data", err)
 	}
@@ -23,7 +23,7 @@ func (databasePointer *Database) findContentMetadataByID(id string) &Content, er
 	return content, err
 }
 
-func (databasePointer *Database) saveContentMetadata(content content) error { 
+func (databasePointer *Database) saveContentMetadata(content Content) error { 
 	_, err := databasePointer.Exec("INSERT INTO `test` ----------etc....")
 	if err != nil {
 		log.Fatal("Database to insert content ", content)
